@@ -1,72 +1,72 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
-import { Bot, Send, User } from 'lucide-react'
-import { Button } from '@base-ui-components/react/button'
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { Bot, Send, User } from "lucide-react";
+import { Button } from "@base-ui-components/react/button";
 
-export const Route = createFileRoute('/chat')({
+export const Route = createFileRoute("/chat")({
   component: ChatApp,
-})
+});
 
 interface Message {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  timestamp: Date
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  timestamp: Date;
 }
 
 async function sendMessage(messages: Array<Message>): Promise<string> {
   // 実際のAPI呼び出しの代わりに、モックレスポンスを返す
   // 本番環境では、OpenAI APIや他のAIサービスを呼び出す
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  
-  const lastMessage = messages[messages.length - 1]?.content || ''
-  return `これは "${lastMessage}" に対するモックレスポンスです。実際のAI APIを統合するには、サーバー関数を作成してAPIキーを安全に管理してください。`
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  const lastMessage = messages[messages.length - 1]?.content || "";
+  return `これは "${lastMessage}" に対するモックレスポンスです。実際のAI APIを統合するには、サーバー関数を作成してAPIキーを安全に管理してください。`;
 }
 
 function ChatApp() {
   const [messages, setMessages] = useState<Array<Message>>([
     {
-      id: '1',
-      role: 'assistant',
-      content: 'こんにちは！何かお手伝いできることはありますか？',
+      id: "1",
+      role: "assistant",
+      content: "こんにちは！何かお手伝いできることはありますか？",
       timestamp: new Date(),
     },
-  ])
-  const [input, setInput] = useState('')
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  ]);
+  const [input, setInput] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const mutation = useMutation({
     mutationFn: sendMessage,
     onSuccess: (response) => {
       const assistantMessage: Message = {
         id: Date.now().toString(),
-        role: 'assistant',
+        role: "assistant",
         content: response,
         timestamp: new Date(),
-      }
-      setMessages((prev) => [...prev, assistantMessage])
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
     },
-  })
+  });
 
   const handleSend = () => {
-    if (!input.trim()) return
+    if (!input.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      role: 'user',
+      role: "user",
       content: input,
       timestamp: new Date(),
-    }
+    };
 
-    setMessages((prev) => [...prev, userMessage])
-    mutation.mutate([...messages, userMessage])
-    setInput('')
-  }
+    setMessages((prev) => [...prev, userMessage]);
+    mutation.mutate([...messages, userMessage]);
+    setInput("");
+  };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900">
@@ -89,19 +89,19 @@ function ChatApp() {
               <div
                 key={message.id}
                 className={`flex gap-4 ${
-                  message.role === 'user' ? 'justify-end' : 'justify-start'
+                  message.role === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                {message.role === 'assistant' && (
+                {message.role === "assistant" && (
                   <div className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center shrink-0">
                     <Bot className="w-6 h-6 text-white" />
                   </div>
                 )}
                 <div
                   className={`max-w-[80%] rounded-lg p-4 ${
-                    message.role === 'user'
-                      ? 'bg-cyan-600 text-white'
-                      : 'bg-slate-700 text-gray-100'
+                    message.role === "user"
+                      ? "bg-cyan-600 text-white"
+                      : "bg-slate-700 text-gray-100"
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{message.content}</p>
@@ -109,7 +109,7 @@ function ChatApp() {
                     {message.timestamp.toLocaleTimeString()}
                   </span>
                 </div>
-                {message.role === 'user' && (
+                {message.role === "user" && (
                   <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
                     <User className="w-6 h-6 text-white" />
                   </div>
@@ -123,9 +123,18 @@ function ChatApp() {
                 </div>
                 <div className="bg-slate-700 rounded-lg p-4">
                   <div className="flex gap-2">
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce">
+                    </div>
+                    <div
+                      className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
+                    >
+                    </div>
+                    <div
+                      className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.4s" }}
+                    >
+                    </div>
                   </div>
                 </div>
               </div>
@@ -140,9 +149,9 @@ function ChatApp() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault()
-                    handleSend()
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSend();
                   }
                 }}
                 placeholder="メッセージを入力..."
@@ -150,6 +159,7 @@ function ChatApp() {
                 disabled={mutation.isPending}
               />
               <Button
+                type="button"
                 onClick={handleSend}
                 disabled={!input.trim() || mutation.isPending}
                 className="px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
@@ -162,6 +172,5 @@ function ChatApp() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

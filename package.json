@@ -14,7 +14,10 @@
     "deploy:internal": "./deploy.sh",
     "docker:build": "docker build -t tanstack-base-ui-gallery .",
     "docker:run": "docker run -p 3000:3000 tanstack-base-ui-gallery",
-    "docker:compose": "docker-compose up -d"
+    "docker:compose": "docker-compose up -d",
+    "deno:fmt": "deno fmt",
+    "deno:fmt:check": "deno fmt --check",
+    "deno:lint": "deno lint"
   },
   "dependencies": {
     "@base-ui-components/react": "1.0.0-beta.7",
@@ -44,6 +47,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "deno": "^2.5.6",
     "jsdom": "^27.0.0",
     "prettier": "^3.5.3",
     "typescript": "^5.7.2",

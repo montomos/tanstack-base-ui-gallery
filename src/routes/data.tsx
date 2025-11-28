@@ -1,6 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Database,
   Edit,
@@ -11,103 +11,109 @@ import {
   Trash2,
   TrendingUp,
   Users,
-} from 'lucide-react'
-import { Button } from '@base-ui-components/react/button'
+} from "lucide-react";
+import { Button } from "@base-ui-components/react/button";
 
-export const Route = createFileRoute('/data')({
+export const Route = createFileRoute("/data")({
   component: DataApp,
-})
+});
 
 interface DataItem {
-  id: string
-  name: string
-  category: string
-  value: number
-  status: 'active' | 'inactive' | 'pending'
-  createdAt: string
+  id: string;
+  name: string;
+  category: string;
+  value: number;
+  status: "active" | "inactive" | "pending";
+  createdAt: string;
 }
 
 // モックデータ
 const mockData: Array<DataItem> = [
   {
-    id: '1',
-    name: 'プロジェクトA',
-    category: '開発',
+    id: "1",
+    name: "プロジェクトA",
+    category: "開発",
     value: 125000,
-    status: 'active',
-    createdAt: '2024-01-15',
+    status: "active",
+    createdAt: "2024-01-15",
   },
   {
-    id: '2',
-    name: 'プロジェクトB',
-    category: 'マーケティング',
+    id: "2",
+    name: "プロジェクトB",
+    category: "マーケティング",
     value: 85000,
-    status: 'active',
-    createdAt: '2024-02-20',
+    status: "active",
+    createdAt: "2024-02-20",
   },
   {
-    id: '3',
-    name: 'プロジェクトC',
-    category: '開発',
+    id: "3",
+    name: "プロジェクトC",
+    category: "開発",
     value: 200000,
-    status: 'pending',
-    createdAt: '2024-03-10',
+    status: "pending",
+    createdAt: "2024-03-10",
   },
   {
-    id: '4',
-    name: 'プロジェクトD',
-    category: 'サポート',
+    id: "4",
+    name: "プロジェクトD",
+    category: "サポート",
     value: 45000,
-    status: 'inactive',
-    createdAt: '2024-01-05',
+    status: "inactive",
+    createdAt: "2024-01-05",
   },
   {
-    id: '5',
-    name: 'プロジェクトE',
-    category: '開発',
+    id: "5",
+    name: "プロジェクトE",
+    category: "開発",
     value: 175000,
-    status: 'active',
-    createdAt: '2024-03-25',
+    status: "active",
+    createdAt: "2024-03-25",
   },
-]
+];
 
 async function fetchDataItems(): Promise<Array<DataItem>> {
-  await new Promise((resolve) => setTimeout(resolve, 500))
-  return mockData
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  return mockData;
 }
 
-async function deleteDataItem(id: string): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, 300))
+async function deleteDataItem(_id: string): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, 300));
 }
 
 function DataApp() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [filterCategory, setFilterCategory] = useState<string>('all')
-  const [filterStatus, setFilterStatus] = useState<string>('all')
-  const queryClient = useQueryClient()
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
+  const queryClient = useQueryClient();
 
   const { data: items = [], isLoading } = useQuery({
-    queryKey: ['data-items'],
+    queryKey: ["data-items"],
     queryFn: fetchDataItems,
-  })
+  });
 
   const deleteMutation = useMutation({
     mutationFn: deleteDataItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['data-items'] })
+      queryClient.invalidateQueries({ queryKey: ["data-items"] });
     },
-  })
+  });
 
   const filteredItems = items.filter((item) => {
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = filterCategory === 'all' || item.category === filterCategory
-    const matchesStatus = filterStatus === 'all' || item.status === filterStatus
-    return matchesSearch && matchesCategory && matchesStatus
-  })
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesCategory = filterCategory === "all" ||
+      item.category === filterCategory;
+    const matchesStatus = filterStatus === "all" ||
+      item.status === filterStatus;
+    return matchesSearch && matchesCategory && matchesStatus;
+  });
 
-  const categories = Array.from(new Set(items.map((item) => item.category)))
-  const totalValue = filteredItems.reduce((sum, item) => sum + item.value, 0)
-  const activeCount = filteredItems.filter((item) => item.status === 'active').length
+  const categories = Array.from(new Set(items.map((item) => item.category)));
+  const totalValue = filteredItems.reduce((sum, item) => sum + item.value, 0);
+  const activeCount = filteredItems.filter(
+    (item) => item.status === "active",
+  ).length;
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 py-8 px-4">
@@ -117,7 +123,7 @@ function DataApp() {
           <h1 className="text-5xl font-black text-white mb-4 flex items-center gap-4">
             <Database className="w-12 h-12 text-cyan-400" />
             <span>
-              <span className="text-gray-300">インタラクティブ</span>{' '}
+              <span className="text-gray-300">インタラクティブ</span>{" "}
               <span className="bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                 データ管理
               </span>
@@ -134,7 +140,9 @@ function DataApp() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-cyan-100 text-sm mb-2">総数</p>
-                <p className="text-3xl font-bold text-white">{filteredItems.length}</p>
+                <p className="text-3xl font-bold text-white">
+                  {filteredItems.length}
+                </p>
               </div>
               <FileText className="w-12 h-12 text-white/50" />
             </div>
@@ -203,95 +211,104 @@ function DataApp() {
 
         {/* Data Table */}
         <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl overflow-hidden">
-          {isLoading ? (
-            <div className="p-12 text-center">
-              <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-gray-300">データを読み込み中...</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-slate-700">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-white">
-                      名前
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-white">
-                      カテゴリ
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-white">
-                      価値
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-white">
-                      ステータス
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-white">
-                      作成日
-                    </th>
-                    <th className="px-6 py-4 text-right text-sm font-semibold text-white">
-                      操作
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-700">
-                  {filteredItems.map((item) => (
-                    <tr
-                      key={item.id}
-                      className="hover:bg-slate-700/50 transition-colors"
-                    >
-                      <td className="px-6 py-4 text-white font-medium">{item.name}</td>
-                      <td className="px-6 py-4 text-gray-300">{item.category}</td>
-                      <td className="px-6 py-4 text-cyan-400 font-semibold">
-                        ¥{item.value.toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                            item.status === 'active'
-                              ? 'bg-green-500/20 text-green-400'
-                              : item.status === 'pending'
-                                ? 'bg-yellow-500/20 text-yellow-400'
-                                : 'bg-red-500/20 text-red-400'
-                          }`}
-                        >
-                          {item.status === 'active'
-                            ? 'アクティブ'
-                            : item.status === 'pending'
-                              ? '保留中'
-                              : '非アクティブ'}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-gray-300">{item.createdAt}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
-                            className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
-                            title="編集"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            onClick={() => deleteMutation.mutate(item.id)}
-                            disabled={deleteMutation.isPending}
-                            className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg disabled:opacity-50"
-                            title="削除"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {filteredItems.length === 0 && (
-                <div className="p-12 text-center text-gray-400">
-                  <Filter className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <p>該当するデータが見つかりませんでした</p>
+          {isLoading
+            ? (
+              <div className="p-12 text-center">
+                <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-4">
                 </div>
-              )}
-            </div>
-          )}
+                <p className="text-gray-300">データを読み込み中...</p>
+              </div>
+            )
+            : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-slate-700">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-white">
+                        名前
+                      </th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-white">
+                        カテゴリ
+                      </th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-white">
+                        価値
+                      </th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-white">
+                        ステータス
+                      </th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-white">
+                        作成日
+                      </th>
+                      <th className="px-6 py-4 text-right text-sm font-semibold text-white">
+                        操作
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-700">
+                    {filteredItems.map((item) => (
+                      <tr
+                        key={item.id}
+                        className="hover:bg-slate-700/50 transition-colors"
+                      >
+                        <td className="px-6 py-4 text-white font-medium">
+                          {item.name}
+                        </td>
+                        <td className="px-6 py-4 text-gray-300">
+                          {item.category}
+                        </td>
+                        <td className="px-6 py-4 text-cyan-400 font-semibold">
+                          ¥{item.value.toLocaleString()}
+                        </td>
+                        <td className="px-6 py-4">
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                              item.status === "active"
+                                ? "bg-green-500/20 text-green-400"
+                                : item.status === "pending"
+                                ? "bg-yellow-500/20 text-yellow-400"
+                                : "bg-red-500/20 text-red-400"
+                            }`}
+                          >
+                            {item.status === "active"
+                              ? "アクティブ"
+                              : item.status === "pending"
+                              ? "保留中"
+                              : "非アクティブ"}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-gray-300">
+                          {item.createdAt}
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-end gap-2">
+                            <Button
+                              className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+                              title="編集"
+                            >
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              onClick={() => deleteMutation.mutate(item.id)}
+                              disabled={deleteMutation.isPending}
+                              className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg disabled:opacity-50"
+                              title="削除"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {filteredItems.length === 0 && (
+                  <div className="p-12 text-center text-gray-400">
+                    <Filter className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>該当するデータが見つかりませんでした</p>
+                  </div>
+                )}
+              </div>
+            )}
         </div>
 
         {/* Add Button */}
@@ -303,6 +320,5 @@ function DataApp() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

@@ -38,4 +38,3 @@ jobs:
           project: tanstack-base-ui-gallery
           entrypoint: server.ts
           root: .
-

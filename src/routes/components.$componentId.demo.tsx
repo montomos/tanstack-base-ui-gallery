@@ -1,22 +1,19 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useState } from 'react'
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ArrowLeft,
+  Check,
   Code,
   Copy,
-  Check,
-  Play,
-  Settings,
-  Eye,
   EyeOff,
   Maximize2,
   Minimize2,
-} from 'lucide-react'
-import { Button } from '@base-ui-components/react/button'
+} from "lucide-react";
+import { Button } from "@base-ui-components/react/button";
 
-export const Route = createFileRoute('/components/$componentId/demo')({
+export const Route = createFileRoute("/components/$componentId/demo")({
   component: ComponentDemo,
-})
+});
 
 // 各コンポーネントのデモ実装
 const componentDemos: Record<string, React.ComponentType> = {
@@ -26,17 +23,17 @@ const componentDemos: Record<string, React.ComponentType> = {
   tabs: TabsDemo,
   select: SelectDemo,
   accordion: AccordionDemo,
-  'alert-dialog': AlertDialogDemo,
+  "alert-dialog": AlertDialogDemo,
   menu: MenuDemo,
-}
+};
 
 function ComponentDemo() {
-  const { componentId } = Route.useParams()
-  const [showCode, setShowCode] = useState(false)
-  const [isFullscreen, setIsFullscreen] = useState(false)
-  const [copied, setCopied] = useState(false)
+  const { componentId } = Route.useParams();
+  const [showCode, setShowCode] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const DemoComponent = componentDemos[componentId]
+  const DemoComponent = componentDemos[componentId];
 
   if (!DemoComponent) {
     return (
@@ -54,14 +51,14 @@ function ComponentDemo() {
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   const copyToClipboard = () => {
     // デモのコードをコピー（実際の実装では、デモのコードを取得）
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900">
@@ -82,24 +79,26 @@ function ComponentDemo() {
               <span className="text-sm text-gray-400">Demo</span>
             </div>
             <div className="flex items-center gap-2">
-              <button
+              <Button
+                type="button"
                 onClick={() => setShowCode(!showCode)}
                 className="p-2 hover:bg-slate-700 rounded-lg transition-colors text-gray-400 hover:text-white"
-                title={showCode ? 'コードを非表示' : 'コードを表示'}
+                title={showCode ? "コードを非表示" : "コードを表示"}
               >
-                {showCode ? <EyeOff className="w-4 h-4" /> : <Code className="w-4 h-4" />}
-              </button>
-              <button
+                {showCode
+                  ? <EyeOff className="w-4 h-4" />
+                  : <Code className="w-4 h-4" />}
+              </Button>
+              <Button
+                type="button"
                 onClick={() => setIsFullscreen(!isFullscreen)}
                 className="p-2 hover:bg-slate-700 rounded-lg transition-colors text-gray-400 hover:text-white"
-                title={isFullscreen ? 'フルスクリーンを解除' : 'フルスクリーン'}
+                title={isFullscreen ? "フルスクリーンを解除" : "フルスクリーン"}
               >
-                {isFullscreen ? (
-                  <Minimize2 className="w-4 h-4" />
-                ) : (
-                  <Maximize2 className="w-4 h-4" />
-                )}
-              </button>
+                {isFullscreen
+                  ? <Minimize2 className="w-4 h-4" />
+                  : <Maximize2 className="w-4 h-4" />}
+              </Button>
             </div>
           </div>
         </div>
@@ -110,12 +109,12 @@ function ComponentDemo() {
         {/* メインコンテンツ */}
         <div
           className={`flex-1 overflow-auto ${
-            showCode ? 'border-r border-slate-700' : ''
+            showCode ? "border-r border-slate-700" : ""
           }`}
         >
           <div
             className={`p-8 bg-slate-950 ${
-              isFullscreen ? 'min-h-full' : 'min-h-[600px]'
+              isFullscreen ? "min-h-full" : "min-h-[600px]"
             } flex items-center justify-center`}
           >
             <div className="w-full max-w-4xl">
@@ -132,22 +131,25 @@ function ComponentDemo() {
                 <Code className="w-4 h-4 text-gray-400" />
                 <span className="text-sm text-gray-300">コード</span>
               </div>
-              <button
+              <Button
+                type="button"
                 onClick={copyToClipboard}
                 className="flex items-center gap-2 px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm transition-colors"
               >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    コピーしました
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    コピー
-                  </>
-                )}
-              </button>
+                {copied
+                  ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      コピーしました
+                    </>
+                  )
+                  : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      コピー
+                    </>
+                  )}
+              </Button>
             </div>
             <div className="p-4">
               <pre className="bg-slate-950 p-4 rounded-lg overflow-x-auto">
@@ -160,12 +162,12 @@ function ComponentDemo() {
         )}
       </div>
     </div>
-  )
+  );
 }
 
 // Button デモ
 function ButtonDemo() {
-  const [clicked, setClicked] = useState<string | null>(null)
+  const [clicked, setClicked] = useState<string | null>(null);
 
   return (
     <div className="space-y-8">
@@ -187,7 +189,9 @@ function ButtonDemo() {
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-300 mb-3">バリアント</h3>
+            <h3 className="text-lg font-semibold text-gray-300 mb-3">
+              バリアント
+            </h3>
             <div className="flex gap-4 items-center flex-wrap">
               <Button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                 プライマリ
@@ -216,22 +220,22 @@ function ButtonDemo() {
                 無効
               </Button>
               <Button
-                onClick={() => setClicked('clicked')}
+                onClick={() => setClicked("clicked")}
                 className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg"
               >
-                {clicked === 'clicked' ? 'クリックされました！' : 'クリック'}
+                {clicked === "clicked" ? "クリックされました！" : "クリック"}
               </Button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Input デモ
 function InputDemo() {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState("");
 
   return (
     <div className="space-y-8">
@@ -239,7 +243,9 @@ function InputDemo() {
         <h2 className="text-2xl font-bold text-white mb-4">Input デモ</h2>
         <div className="space-y-6">
           <div>
-            <h3 className="text-lg font-semibold text-gray-300 mb-3">基本的な使い方</h3>
+            <h3 className="text-lg font-semibold text-gray-300 mb-3">
+              基本的な使い方
+            </h3>
             <input
               type="text"
               value={value}
@@ -248,7 +254,7 @@ function InputDemo() {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-sm text-gray-400 mt-2">
-              入力値: <span className="text-cyan-400">{value || '(空)'}</span>
+              入力値: <span className="text-cyan-400">{value || "(空)"}</span>
             </p>
           </div>
           <div>
@@ -271,12 +277,12 @@ function InputDemo() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Dialog デモ
 function DialogDemo() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="space-y-8">
@@ -298,9 +304,12 @@ function DialogDemo() {
                 className="bg-slate-800 rounded-lg p-6 max-w-md w-full mx-4"
                 onClick={(e) => e.stopPropagation()}
               >
-                <h3 className="text-xl font-bold text-white mb-4">ダイアログ</h3>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  ダイアログ
+                </h3>
                 <p className="text-gray-300 mb-6">
-                  これはダイアログのデモです。Base UI ComponentsのDialogコンポーネントを使用して実装できます。
+                  これはダイアログのデモです。Base UI
+                  ComponentsのDialogコンポーネントを使用して実装できます。
                 </p>
                 <div className="flex gap-3 justify-end">
                   <Button
@@ -322,12 +331,12 @@ function DialogDemo() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Tabs デモ
 function TabsDemo() {
-  const [activeTab, setActiveTab] = useState('tab1')
+  const [activeTab, setActiveTab] = useState("tab1");
 
   return (
     <div className="space-y-8">
@@ -335,40 +344,41 @@ function TabsDemo() {
         <h2 className="text-2xl font-bold text-white mb-4">Tabs デモ</h2>
         <div className="bg-slate-800 rounded-lg overflow-hidden">
           <div className="flex border-b border-slate-700">
-            {['tab1', 'tab2', 'tab3'].map((tab) => (
-              <button
+            {["tab1", "tab2", "tab3"].map((tab) => (
+              <Button
+                type="button"
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-6 py-3 font-medium transition-colors ${
                   activeTab === tab
-                    ? 'bg-cyan-600 text-white'
-                    : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
+                    ? "bg-cyan-600 text-white"
+                    : "bg-slate-700 text-gray-300 hover:bg-slate-600"
                 }`}
               >
                 タブ {tab.slice(-1)}
-              </button>
+              </Button>
             ))}
           </div>
           <div className="p-6">
-            {activeTab === 'tab1' && (
+            {activeTab === "tab1" && (
               <p className="text-gray-300">タブ1のコンテンツ</p>
             )}
-            {activeTab === 'tab2' && (
+            {activeTab === "tab2" && (
               <p className="text-gray-300">タブ2のコンテンツ</p>
             )}
-            {activeTab === 'tab3' && (
+            {activeTab === "tab3" && (
               <p className="text-gray-300">タブ3のコンテンツ</p>
             )}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Select デモ
 function SelectDemo() {
-  const [value, setValue] = useState('option1')
+  const [value, setValue] = useState("option1");
 
   return (
     <div className="space-y-8">
@@ -392,41 +402,43 @@ function SelectDemo() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Accordion デモ
 function AccordionDemo() {
-  const [openItems, setOpenItems] = useState<Set<string>>(new Set(['item1']))
+  const [openItems, setOpenItems] = useState<Set<string>>(new Set(["item1"]));
 
   const toggleItem = (item: string) => {
-    const newOpenItems = new Set(openItems)
+    const newOpenItems = new Set(openItems);
     if (newOpenItems.has(item)) {
-      newOpenItems.delete(item)
+      newOpenItems.delete(item);
     } else {
-      newOpenItems.add(item)
+      newOpenItems.add(item);
     }
-    setOpenItems(newOpenItems)
-  }
+    setOpenItems(newOpenItems);
+  };
 
   return (
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-bold text-white mb-4">Accordion デモ</h2>
         <div className="space-y-2">
-          {['item1', 'item2', 'item3'].map((item) => (
+          {["item1", "item2", "item3"].map((item) => (
             <div key={item} className="bg-slate-800 rounded-lg overflow-hidden">
-              <button
-                onClick={() => toggleItem(item)}
+              <Button
+                type="button"
+                onClick={() =>
+                  toggleItem(item)}
                 className="w-full px-6 py-4 flex items-center justify-between bg-slate-700 hover:bg-slate-600 transition-colors"
               >
                 <span className="text-white font-medium">
                   セクション {item.slice(-1)}
                 </span>
                 <span className="text-gray-400">
-                  {openItems.has(item) ? '−' : '+'}
+                  {openItems.has(item) ? "−" : "+"}
                 </span>
-              </button>
+              </Button>
               {openItems.has(item) && (
                 <div className="p-6 text-gray-300">
                   これはセクション {item.slice(-1)} のコンテンツです。
@@ -437,17 +449,19 @@ function AccordionDemo() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Alert Dialog デモ
 function AlertDialogDemo() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-white mb-4">Alert Dialog デモ</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">
+          Alert Dialog デモ
+        </h2>
         <div className="space-y-6">
           <Button
             onClick={() => setIsOpen(true)}
@@ -488,13 +502,13 @@ function AlertDialogDemo() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Menu デモ
 function MenuDemo() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState<string | null>(null);
 
   return (
     <div className="space-y-8">
@@ -515,35 +529,37 @@ function MenuDemo() {
                   onClick={() => setIsOpen(false)}
                 />
                 <div className="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg min-w-[200px] z-10">
-                  {['オプション1', 'オプション2', 'オプション3'].map((option) => (
-                    <button
-                      key={option}
-                      onClick={() => {
-                        setSelected(option)
-                        setIsOpen(false)
-                      }}
-                      className="w-full px-4 py-2 text-left text-gray-300 hover:bg-slate-700 transition-colors first:rounded-t-lg last:rounded-b-lg"
-                    >
-                      {option}
-                    </button>
-                  ))}
+                  {["オプション1", "オプション2", "オプション3"].map(
+                    (option) => (
+                      <Button
+                        type="button"
+                        key={option}
+                        onClick={() => {
+                          setSelected(option);
+                          setIsOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left text-gray-300 hover:bg-slate-700 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                      >
+                        {option}
+                      </Button>
+                    ),
+                  )}
                 </div>
               </>
             )}
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-300 mb-3">選択された値</h3>
+            <h3 className="text-lg font-semibold text-gray-300 mb-3">
+              選択された値
+            </h3>
             <p className="text-gray-400">
-              {selected ? (
-                <span className="text-cyan-400">{selected}</span>
-              ) : (
-                <span className="text-gray-500">なし</span>
-              )}
+              {selected
+                ? <span className="text-cyan-400">{selected}</span>
+                : <span className="text-gray-500">なし</span>}
             </p>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-

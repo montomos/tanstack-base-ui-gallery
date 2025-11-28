@@ -18,16 +18,11 @@
     "start": "deno run --allow-net --allow-read --allow-env server.ts"
   },
   "fmt": {
-    "files": {
-      "include": ["src/", "*.ts", "*.tsx"],
-      "exclude": ["src/routeTree.gen.ts"]
-    }
+    "include": ["src/", "*.ts", "*.tsx"],
+    "exclude": ["src/routeTree.gen.ts"]
   },
   "lint": {
-    "files": {
-      "include": ["src/", "*.ts", "*.tsx"],
-      "exclude": ["src/routeTree.gen.ts", "**/routeTree.gen.ts"]
-    }
+    "include": ["src/", "*.ts", "*.tsx"],
+    "exclude": ["src/routeTree.gen.ts", "**/routeTree.gen.ts"]
   }
 }
-

@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Deno
-        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
+        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31 # v1.1.2
         with:
           deno-version: v1.x
 
@@ -70,4 +70,3 @@ jobs:
         run: |
           find src -name "*.ts" -o -name "*.tsx" | grep -v routeTree.gen.ts | xargs deno check || echo "Deno check completed with warnings"
         continue-on-error: true
-

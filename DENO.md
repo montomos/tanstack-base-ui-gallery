@@ -45,4 +45,3 @@ deployctl deploy --project=tanstack-base-ui-gallery
 
 現在のプロジェクトは主にNode.js/pnpmベースで動作しますが、Deno Deployへのデプロイも可能です。
 Cloudflare Workersへのデプロイも引き続き利用可能です。
-

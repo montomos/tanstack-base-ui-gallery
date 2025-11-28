@@ -1,50 +1,48 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useState } from 'react'
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ArrowLeft,
+  Box,
+  Check,
   Code,
   Copy,
-  Check,
-  Play,
-  Palette,
-  Zap,
-  Box,
-  Layers,
-  CheckCircle,
   ExternalLink,
-} from 'lucide-react'
-import { Button } from '@base-ui-components/react/button'
+  Play,
+  Zap,
+} from "lucide-react";
+import { Button } from "@base-ui-components/react/button";
+import { Input } from "@base-ui-components/react/input";
 
-export const Route = createFileRoute('/components/$componentId')({
+export const Route = createFileRoute("/components/$componentId")({
   component: ComponentDetail,
-})
+});
 
 const componentData: Record<
   string,
   {
-    name: string
-    description: string
-    category: string
-    icon: React.ReactNode
+    name: string;
+    description: string;
+    category: string;
+    icon: React.ReactNode;
     examples: Array<{
-      title: string
-      description: string
-      code: string
-      preview: React.ReactNode
-    }>
-    props?: Array<{ name: string; type: string; description: string }>
+      title: string;
+      description: string;
+      code: string;
+      preview: React.ReactNode;
+    }>;
+    props?: Array<{ name: string; type: string; description: string }>;
   }
 > = {
   button: {
-    name: 'Button',
+    name: "Button",
     description:
-      'Buttonコンポーネントは、ユーザーのアクションをトリガーするためのクリック可能な要素です。様々なサイズ、バリアント、状態をサポートしています。',
-    category: 'フォーム',
+      "Buttonコンポーネントは、ユーザーのアクションをトリガーするためのクリック可能な要素です。様々なサイズ、バリアント、状態をサポートしています。",
+    category: "フォーム",
     icon: <Zap className="w-6 h-6" />,
     examples: [
       {
-        title: '基本的な使い方',
-        description: 'シンプルなボタンの例',
+        title: "基本的な使い方",
+        description: "シンプルなボタンの例",
         code: `import { Button } from '@base-ui-components/react/button'
 
 <Button className="px-4 py-2 bg-blue-600 text-white rounded-lg">
@@ -57,9 +55,10 @@ const componentData: Record<
         ),
       },
       {
-        title: 'サイズバリエーション',
-        description: '異なるサイズのボタン',
-        code: `<Button className="px-2 py-1 text-sm bg-blue-600 text-white rounded">
+        title: "サイズバリエーション",
+        description: "異なるサイズのボタン",
+        code:
+          `<Button className="px-2 py-1 text-sm bg-blue-600 text-white rounded">
   小
 </Button>
 <Button className="px-4 py-2 bg-blue-600 text-white rounded-lg">
@@ -83,8 +82,8 @@ const componentData: Record<
         ),
       },
       {
-        title: 'バリアント',
-        description: '異なるスタイルのボタン',
+        title: "バリアント",
+        description: "異なるスタイルのボタン",
         code: `<Button className="px-4 py-2 bg-blue-600 text-white rounded-lg">
   プライマリ
 </Button>
@@ -111,32 +110,32 @@ const componentData: Record<
     ],
     props: [
       {
-        name: 'className',
-        type: 'string',
-        description: 'カスタムCSSクラス',
+        name: "className",
+        type: "string",
+        description: "カスタムCSSクラス",
       },
       {
-        name: 'onClick',
-        type: '() => void',
-        description: 'クリック時のハンドラ',
+        name: "onClick",
+        type: "() => void",
+        description: "クリック時のハンドラ",
       },
       {
-        name: 'disabled',
-        type: 'boolean',
-        description: '無効化状態',
+        name: "disabled",
+        type: "boolean",
+        description: "無効化状態",
       },
     ],
   },
   input: {
-    name: 'Input',
+    name: "Input",
     description:
-      'Inputコンポーネントは、ユーザーからのテキスト入力を収集するためのフィールドです。バリデーションとエラーハンドリングをサポートしています。',
-    category: 'フォーム',
+      "Inputコンポーネントは、ユーザーからのテキスト入力を収集するためのフィールドです。バリデーションとエラーハンドリングをサポートしています。",
+    category: "フォーム",
     icon: <Box className="w-6 h-6" />,
     examples: [
       {
-        title: '基本的な使い方',
-        description: 'シンプルな入力フィールド',
+        title: "基本的な使い方",
+        description: "シンプルな入力フィールド",
         code: `import { Input } from '@base-ui-components/react/input'
 
 <Input
@@ -153,8 +152,8 @@ const componentData: Record<
         ),
       },
       {
-        title: 'サイズバリエーション',
-        description: '異なるサイズの入力フィールド',
+        title: "サイズバリエーション",
+        description: "異なるサイズの入力フィールド",
         code: `<Input className="px-2 py-1 text-sm border rounded" />
 <Input className="px-4 py-2 border rounded-lg" />
 <Input className="px-6 py-3 text-lg border rounded-xl" />`,
@@ -178,35 +177,34 @@ const componentData: Record<
     ],
     props: [
       {
-        name: 'type',
-        type: 'string',
-        description: '入力タイプ（text, email, password等）',
+        name: "type",
+        type: "string",
+        description: "入力タイプ（text, email, password等）",
       },
       {
-        name: 'value',
-        type: 'string',
-        description: '入力値',
+        name: "value",
+        type: "string",
+        description: "入力値",
       },
       {
-        name: 'onChange',
-        type: '(e: ChangeEvent) => void',
-        description: '値変更時のハンドラ',
+        name: "onChange",
+        type: "(e: ChangeEvent) => void",
+        description: "値変更時のハンドラ",
       },
       {
-        name: 'placeholder',
-        type: 'string',
-        description: 'プレースホルダーテキスト',
+        name: "placeholder",
+        type: "string",
+        description: "プレースホルダーテキスト",
       },
     ],
   },
-}
+};
 
 function ComponentDetail() {
-  const { componentId } = Route.useParams()
-  const [copiedCode, setCopiedCode] = useState<string | null>(null)
-  const [activeExample, setActiveExample] = useState(0)
+  const { componentId } = Route.useParams();
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
-  const component = componentData[componentId]
+  const component = componentData[componentId];
 
   if (!component) {
     return (
@@ -215,22 +213,19 @@ function ComponentDetail() {
           <h1 className="text-4xl font-bold text-white mb-4">
             コンポーネントが見つかりません
           </h1>
-          <Link
-            to="/components"
-            className="text-cyan-400 hover:text-cyan-300"
-          >
+          <Link to="/components" className="text-cyan-400 hover:text-cyan-300">
             コンポーネント一覧に戻る
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   const copyToClipboard = (code: string, exampleIndex: number) => {
-    navigator.clipboard.writeText(code)
-    setCopiedCode(`${componentId}-${exampleIndex}`)
-    setTimeout(() => setCopiedCode(null), 2000)
-  }
+    navigator.clipboard.writeText(code);
+    setCopiedCode(`${componentId}-${exampleIndex}`);
+    setTimeout(() => setCopiedCode(null), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900">
@@ -250,7 +245,9 @@ function ComponentDetail() {
                 {component.icon}
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-white">{component.name}</h1>
+                <h1 className="text-3xl font-bold text-white">
+                  {component.name}
+                </h1>
                 <p className="text-gray-400 mt-1">{component.category}</p>
               </div>
             </div>
@@ -278,8 +275,7 @@ function ComponentDetail() {
         {/* Examples */}
         <div className="space-y-8">
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Play className="w-6 h-6 text-cyan-400" />
-            例
+            <Play className="w-6 h-6 text-cyan-400" />例
           </h2>
 
           {component.examples.map((example, index) => (
@@ -306,22 +302,25 @@ function ComponentDetail() {
                     <Code className="w-5 h-5 text-gray-400" />
                     <span className="text-sm text-gray-400">コード例</span>
                   </div>
-                  <button
+                  <Button
+                    type="button"
                     onClick={() => copyToClipboard(example.code, index)}
                     className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors text-sm"
                   >
-                    {copiedCode === `${componentId}-${index}` ? (
-                      <>
-                        <Check className="w-4 h-4" />
-                        コピーしました
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-4 h-4" />
-                        コピー
-                      </>
-                    )}
-                  </button>
+                    {copiedCode === `${componentId}-${index}`
+                      ? (
+                        <>
+                          <Check className="w-4 h-4" />
+                          コピーしました
+                        </>
+                      )
+                      : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          コピー
+                        </>
+                      )}
+                  </Button>
                 </div>
                 <pre className="p-4 bg-slate-950 overflow-x-auto">
                   <code className="text-cyan-300 text-sm">{example.code}</code>
@@ -374,6 +373,5 @@ function ComponentDetail() {
         )}
       </div>
     </div>
-  )
+  );
 }
-
