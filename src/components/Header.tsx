@@ -10,6 +10,10 @@ import {
   SquareFunction,
   StickyNote,
   X,
+  MessageSquare,
+  Rocket,
+  Database,
+  Palette,
 } from 'lucide-react'
 
 export default function Header() {
@@ -68,6 +72,63 @@ export default function Header() {
             <Home size={20} />
             <span className="font-medium">Home</span>
           </Link>
+
+          {/* Components Gallery */}
+          <Link
+            to="/components"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <Palette size={20} />
+            <span className="font-medium">Components Gallery</span>
+          </Link>
+
+          {/* New Apps Section */}
+          <div className="my-4 pt-4 border-t border-gray-700">
+            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">
+              Base UI Apps
+            </h3>
+            <Link
+              to="/chat"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+              activeProps={{
+                className:
+                  'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+              }}
+            >
+              <MessageSquare size={20} />
+              <span className="font-medium">Chat AI</span>
+            </Link>
+            <Link
+              to="/demo-tanstack"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+              activeProps={{
+                className:
+                  'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+              }}
+            >
+              <Rocket size={20} />
+              <span className="font-medium">TanStack Demo</span>
+            </Link>
+            <Link
+              to="/data"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+              activeProps={{
+                className:
+                  'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+              }}
+            >
+              <Database size={20} />
+              <span className="font-medium">Data Management</span>
+            </Link>
+          </div>
 
           {/* Demo Links Start */}
 

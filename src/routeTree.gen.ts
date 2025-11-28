@@ -9,19 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DemoTanstackRouteImport } from './routes/demo-tanstack'
+import { Route as DataRouteImport } from './routes/data'
+import { Route as ComponentsRouteImport } from './routes/components'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComponentsComponentIdRouteImport } from './routes/components.$componentId'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
+import { Route as ComponentsComponentIdDemoRouteImport } from './routes/components.$componentId.demo'
 import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
 import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
 
+const DemoTanstackRoute = DemoTanstackRouteImport.update({
+  id: '/demo-tanstack',
+  path: '/demo-tanstack',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataRoute = DataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComponentsRoute = ComponentsRouteImport.update({
+  id: '/components',
+  path: '/components',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ComponentsComponentIdRoute = ComponentsComponentIdRouteImport.update({
+  id: '/$componentId',
+  path: '/$componentId',
+  getParentRoute: () => ComponentsRoute,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
   id: '/demo/start/server-funcs',
@@ -38,6 +69,12 @@ const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
   path: '/demo/api/names',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComponentsComponentIdDemoRoute =
+  ComponentsComponentIdDemoRouteImport.update({
+    id: '/demo',
+    path: '/demo',
+    getParentRoute: () => ComponentsComponentIdRoute,
+  } as any)
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
   path: '/demo/start/ssr/',
@@ -61,6 +98,12 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
+  '/components': typeof ComponentsRouteWithChildren
+  '/data': typeof DataRoute
+  '/demo-tanstack': typeof DemoTanstackRoute
+  '/components/$componentId': typeof ComponentsComponentIdRouteWithChildren
+  '/components/$componentId/demo': typeof ComponentsComponentIdDemoRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -71,6 +114,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
+  '/components': typeof ComponentsRouteWithChildren
+  '/data': typeof DataRoute
+  '/demo-tanstack': typeof DemoTanstackRoute
+  '/components/$componentId': typeof ComponentsComponentIdRouteWithChildren
+  '/components/$componentId/demo': typeof ComponentsComponentIdDemoRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -82,6 +131,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
+  '/components': typeof ComponentsRouteWithChildren
+  '/data': typeof DataRoute
+  '/demo-tanstack': typeof DemoTanstackRoute
+  '/components/$componentId': typeof ComponentsComponentIdRouteWithChildren
+  '/components/$componentId/demo': typeof ComponentsComponentIdDemoRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -94,6 +149,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/chat'
+    | '/components'
+    | '/data'
+    | '/demo-tanstack'
+    | '/components/$componentId'
+    | '/components/$componentId/demo'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -104,6 +165,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/chat'
+    | '/components'
+    | '/data'
+    | '/demo-tanstack'
+    | '/components/$componentId'
+    | '/components/$componentId/demo'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -114,6 +181,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/chat'
+    | '/components'
+    | '/data'
+    | '/demo-tanstack'
+    | '/components/$componentId'
+    | '/components/$componentId/demo'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -125,6 +198,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChatRoute: typeof ChatRoute
+  ComponentsRoute: typeof ComponentsRouteWithChildren
+  DataRoute: typeof DataRoute
+  DemoTanstackRoute: typeof DemoTanstackRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
@@ -136,12 +213,47 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/demo-tanstack': {
+      id: '/demo-tanstack'
+      path: '/demo-tanstack'
+      fullPath: '/demo-tanstack'
+      preLoaderRoute: typeof DemoTanstackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data': {
+      id: '/data'
+      path: '/data'
+      fullPath: '/data'
+      preLoaderRoute: typeof DataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/components': {
+      id: '/components'
+      path: '/components'
+      fullPath: '/components'
+      preLoaderRoute: typeof ComponentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/components/$componentId': {
+      id: '/components/$componentId'
+      path: '/$componentId'
+      fullPath: '/components/$componentId'
+      preLoaderRoute: typeof ComponentsComponentIdRouteImport
+      parentRoute: typeof ComponentsRoute
     }
     '/demo/start/server-funcs': {
       id: '/demo/start/server-funcs'
@@ -163,6 +275,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/demo/api/names'
       preLoaderRoute: typeof DemoApiNamesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/components/$componentId/demo': {
+      id: '/components/$componentId/demo'
+      path: '/demo'
+      fullPath: '/components/$componentId/demo'
+      preLoaderRoute: typeof ComponentsComponentIdDemoRouteImport
+      parentRoute: typeof ComponentsComponentIdRoute
     }
     '/demo/start/ssr/': {
       id: '/demo/start/ssr/'
@@ -195,8 +314,37 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ComponentsComponentIdRouteChildren {
+  ComponentsComponentIdDemoRoute: typeof ComponentsComponentIdDemoRoute
+}
+
+const ComponentsComponentIdRouteChildren: ComponentsComponentIdRouteChildren = {
+  ComponentsComponentIdDemoRoute: ComponentsComponentIdDemoRoute,
+}
+
+const ComponentsComponentIdRouteWithChildren =
+  ComponentsComponentIdRoute._addFileChildren(
+    ComponentsComponentIdRouteChildren,
+  )
+
+interface ComponentsRouteChildren {
+  ComponentsComponentIdRoute: typeof ComponentsComponentIdRouteWithChildren
+}
+
+const ComponentsRouteChildren: ComponentsRouteChildren = {
+  ComponentsComponentIdRoute: ComponentsComponentIdRouteWithChildren,
+}
+
+const ComponentsRouteWithChildren = ComponentsRoute._addFileChildren(
+  ComponentsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChatRoute: ChatRoute,
+  ComponentsRoute: ComponentsRouteWithChildren,
+  DataRoute: DataRoute,
+  DemoTanstackRoute: DemoTanstackRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,

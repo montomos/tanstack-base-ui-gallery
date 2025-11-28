@@ -299,3 +299,40 @@ Files prefixed with `demo` can be safely deleted. They are there to provide a st
 # Learn More
 
 You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
+
+## Deno Support
+
+This project includes Deno configuration for deployment to Deno Deploy and CI/CD.
+
+### Deno Deploy
+
+To deploy to Deno Deploy:
+
+1. Connect your GitHub repository to [Deno Deploy](https://deno.com/deploy)
+2. The GitHub Actions workflow will automatically deploy on push to `main`
+3. Or use the Deno Deploy CLI:
+
+```bash
+deno deploy --project=tanstack-base-ui-gallery
+```
+
+### Deno Tasks
+
+```bash
+# Run development server with Deno
+deno task dev
+
+# Build with Deno
+deno task build
+
+# Start production server with Deno
+deno task start
+```
+
+### CI/CD
+
+The project includes GitHub Actions workflows for:
+- **CI**: Linting, testing, and building with both pnpm and Deno
+- **Deploy**: Automatic deployment to Deno Deploy on push to main
+
+See `.github/workflows/` for more details.

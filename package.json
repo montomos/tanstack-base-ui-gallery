@@ -10,12 +10,20 @@
     "lint": "eslint",
     "format": "prettier",
     "check": "prettier --write . && eslint --fix",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "deploy:internal": "./deploy.sh",
+    "docker:build": "docker build -t tanstack-base-ui-gallery .",
+    "docker:run": "docker run -p 3000:3000 tanstack-base-ui-gallery",
+    "docker:compose": "docker-compose up -d"
   },
   "dependencies": {
+    "@base-ui-components/react": "1.0.0-beta.7",
     "@cloudflare/vite-plugin": "^1.13.8",
+    "@mui/base": "5.0.0-beta.70",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.7.0",
+    "@tanstack/react-query": "^5.90.11",
+    "@tanstack/react-query-devtools": "^5.91.1",
     "@tanstack/react-router": "^1.132.0",
     "@tanstack/react-router-devtools": "^1.132.0",
     "@tanstack/react-router-ssr-query": "^1.131.7",
